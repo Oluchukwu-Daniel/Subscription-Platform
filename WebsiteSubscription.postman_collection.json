@@ -1,0 +1,53 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Website Subscription",
+		"_postman_id": "84e703b4-631a-5883-6832-cefe0d9c8e01",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserSubscription",
+			"request": {
+				"url": "localhost:8000/api/create-subscription",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"name\": \"olu dan\",\r\n      \"email\": \"olu@gmail.com\",\r\n      \"website_id\": 1\r\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePost",
+			"request": {
+				"url": "localhost:8000/api/create-post",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"title\": \"myfirstpost\",\r\n      \"description\": \"talkabouttech\",\r\n      \"website_id\": 1\r\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PublishPost",
+			"request": {
+				"url": "localhost:8000/api/publish-post",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"post_id\": 1\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

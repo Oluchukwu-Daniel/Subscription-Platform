@@ -21,10 +21,10 @@ class UserSubscriptionController extends Controller
         $saveUser = User_Subscription::create($saveData);
 
         if($saveUser){
-            $res = ["status" => "success"];
+            $res = ["status" => "success", "result" => $saveUser];
             
         }else {
-            $res = ["status" => "failed"];
+            $res = ["status" => "failed", "result" => $saveUser];
         }
 
         return response()->json($res);

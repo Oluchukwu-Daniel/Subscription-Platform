@@ -12,4 +12,5 @@ Website Subscription software is a platform where users can subscribe to a websi
 1. Clone the project from git
 2. Run the migrations
 3. Set up email server and configure the .env file
-4. Download and import the api collections to test on postman.
+4. Download and import the API collections using the link below to test on postman.
+[API collections](https://github.com/Oluchukwu-Daniel/Subscription-Platform/blob/main/WebsiteSubscription.postman_collection.json)

@@ -31,7 +31,7 @@ class PostController extends Controller
         }else {
             $res = ["status" => "failed", "result"=> $savePost];
         }
-        return response()->json($res);
+        return response()->json($res, );
 
     }
 
@@ -50,33 +50,28 @@ class PostController extends Controller
         if($updateStatus){
             $res = ["status" => "success", "result" => $updateStatus];
             
-        }else {
-            $res = ["status" => "failed", "result" => $updateStatus];
-        }
+            $post_id = Posts::find($request->post_id);
 
-
-        // finds the web id of the post id being published
-        $post_id = Posts::find($request->post_id);
-
-        $web_id =  $post_id['website_id'];
-        $post_description =  $post_id['description'];
-
-        //gets all email of the users subscribed to the website-id using the "subscription" relationship
-        $web_id = Website::find($web_id);
-        $subscribers = $web_id->subscription;
-        // $subscribers_email = $web_id->subscription->name;
-        
-        foreach($subscribers as $subscriber){
-
-            // Mail::to($subscriber['email'])->queue(new WebsiteSubscription($subscriber, $web_id, $post_description));
-
-            WebsiteSubscriptionEmail::dispatch($subscriber, $web_id, $post_description);
             
-        //    $res = ["status" => "failed", "result" => $updateStatus];
- 
-            return response()->json(["status" => "success"]);
-        }
-    
+            // finds the website_id of the post id being published
+            $web_id =  $post_id['website_id'];
+            $post_description =  $post_id['description'];
 
+            //gets all email of the users subscribed to the website-id using the "subscription" relationship
+            $web_id = Website::find($web_id);
+            $subscribers = $web_id->subscription;
+
+            foreach($subscribers as $subscriber){
+
+                WebsiteSubscriptionEmail::dispatch($subscriber, $web_id, $post_description);
+                
+                return response()->json(["status" => "success", "result" => $updateStatus]);
+            }
+
+        }else {
+            return response()->json(["status" => "failed", "result" => $updateStatus]);
+        }
+        
+    
     }
 }
