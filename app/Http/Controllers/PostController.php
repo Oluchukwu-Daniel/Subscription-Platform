@@ -7,6 +7,7 @@ use App\Models\Posts;
 use App\Models\User_Subscription;
 use App\Models\Website;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
@@ -42,36 +43,21 @@ class PostController extends Controller
         $status  = 1;
 
         $updateStatus = Posts::where('id', $request->post_id)
-                                ->where("status", 0)
+                                // ->where("status", 0)
                                 ->update(["status" => $status]);
-
+                        
+                                
         if($updateStatus){
-            $res = ["status" => "success", "result" => $updateStatus];
-            
-            $post_id = Posts::find($request->post_id);
-
-            $post_description =  $post_id['description'];
-            $post_title =  $post_id['title'];
-
-            // finds the website_id of the post id being published
-            $web_id =  $post_id['website_id'];
-
-            //gets all email of the users subscribed to the website-id using the "subscription" relationship
-            $web_id = Website::find($web_id);
-            $subscribers = $web_id->subscription;
-
-            foreach($subscribers as $subscriber){
-
-                WebsiteSubscriptionEmailJob::dispatch($subscriber, $post_title, $post_description);
-            }
-            
-            return response()->json(["status" => "success", "result" => $updateStatus]);
+            $res =  ["status" => "published", "result" => $request->post_id];
+            Artisan::call('mails:send', ['post-id' => $request->post_id]);
+            return response()->json($res);
 
         }else {
-
-            return response()->json(["status" => "failed", "result" => $updateStatus]);
+            $res =  ["status" => "not-published", "result" => $request->post_id];
+            $sendmail = "Could not send mail as post was not published";
+            return response()->json($res);
         }
-        
-    
+
     }
+
 }

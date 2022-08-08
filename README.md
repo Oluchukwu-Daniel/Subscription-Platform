@@ -14,3 +14,5 @@ Website Subscription software is a platform where users can subscribe to a websi
 3. Set up email server and configure the .env file
 4. Download and import the API collections using the link below to test on postman.
 [API collections:](https://github.com/Oluchukwu-Daniel/Subscription-Platform/blob/main/WebsiteSubscription.postman_collection.json)
+5. Upon setting up on the local server, to get the queue working, run the command "php artisan queue:work" on the terminal to activate the queue to work.
+

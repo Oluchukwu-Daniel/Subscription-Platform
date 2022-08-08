@@ -23,4 +23,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/create-subscription', [UserSubscriptionController::class, "create"]);
 Route::post('/create-post', [PostController::class, "create"]);
 Route::post('/publish-post', [PostController::class, "publish"]);
-
