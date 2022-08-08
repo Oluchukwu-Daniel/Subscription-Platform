@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\WebsiteSubscriptionEmail;
-use App\Mail\WebsiteSubcription;
-use App\Mail\WebsiteSubscription;
+use App\Jobs\WebsiteSubscriptionEmailJob;
 use App\Models\Posts;
 use App\Models\User_Subscription;
 use App\Models\Website;
@@ -31,7 +29,7 @@ class PostController extends Controller
         }else {
             $res = ["status" => "failed", "result"=> $savePost];
         }
-        return response()->json($res, );
+        return response()->json($res);
 
     }
 
@@ -52,10 +50,11 @@ class PostController extends Controller
             
             $post_id = Posts::find($request->post_id);
 
-            
+            $post_description =  $post_id['description'];
+            $post_title =  $post_id['title'];
+
             // finds the website_id of the post id being published
             $web_id =  $post_id['website_id'];
-            $post_description =  $post_id['description'];
 
             //gets all email of the users subscribed to the website-id using the "subscription" relationship
             $web_id = Website::find($web_id);
@@ -63,12 +62,13 @@ class PostController extends Controller
 
             foreach($subscribers as $subscriber){
 
-                WebsiteSubscriptionEmail::dispatch($subscriber, $web_id, $post_description);
-                
-                return response()->json(["status" => "success", "result" => $updateStatus]);
+                WebsiteSubscriptionEmailJob::dispatch($subscriber, $post_title, $post_description);
             }
+            
+            return response()->json(["status" => "success", "result" => $updateStatus]);
 
         }else {
+
             return response()->json(["status" => "failed", "result" => $updateStatus]);
         }
         

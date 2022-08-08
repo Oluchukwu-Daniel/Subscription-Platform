@@ -10,7 +10,7 @@
 
     <p>Hello {{$subscriber['name']}}</p>
     <p>this is a new post from your subcribed website</p>
-    <p>Title: {{$web_id->name}}</p>
+    <p>Title: {{$post_title}}</p>
     <p>Description: {{$post_description}}
   </body>
   </html>
