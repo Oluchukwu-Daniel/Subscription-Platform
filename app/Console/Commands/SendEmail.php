@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\WebsiteSubscriptionEmailJob;
+use App\Models\Post;
 use App\Models\Posts;
 use App\Models\Website;
 use Illuminate\Console\Command;
@@ -46,7 +47,7 @@ class SendEmail extends Command
         // $post_id = $this->ask('What is your post-id ?');
         $post_id = $this->argument('post-id'); //you  can either pass your arg/parameter when defining your signature, or you can pass it as ask method.
 
-        $post_id = Posts::find($post_id);
+        $post_id = Post::find($post_id);
 
         $post_description =  $post_id['description'];
         $post_title =  $post_id['title'];
