@@ -15,7 +15,7 @@ class CreateUserSubscriptionsTable extends Migration
     {
         Schema::create('user__subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('website_id');
+            $table->foreignId('website_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamps();

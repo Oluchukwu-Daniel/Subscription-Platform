@@ -16,3 +16,4 @@ Website Subscription software is a platform where users can subscribe to a websi
 [API collections:](https://github.com/Oluchukwu-Daniel/Subscription-Platform/blob/main/WebsiteSubscription.postman_collection.json)
 5. Upon setting up on the local server, to get the queue working, run the command "php artisan queue:work" on the terminal to activate the queue to work.
 
+ 

@@ -7,19 +7,20 @@ use Illuminate\Http\Request;
 
 class UserSubscriptionController extends Controller
 {
-    //
+    
     public function create(Request $request){
 
         $saveData = $request->validate([
 
+            "website_id" => ['required', 'integer'],
             "name" => "required|string",
             "email" => "required|email",
-            "website_id" => ['required', 'integer']
-
+            
         ]);
 
         $saveUser = User_Subscription::create($saveData);
 
+        // dd($saveUser);
         if($saveUser){
             $res = ["status" => "success", "result" => $saveUser];
             

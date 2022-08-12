@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\WebsiteSubscriptionEmailJob;
-use App\Models\Posts;
-use App\Models\User_Subscription;
+use App\Models\Post;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -22,7 +21,7 @@ class PostController extends Controller
 
         $saveData["status"] = 0;
         
-        $savePost = Posts::create($saveData);
+        $savePost = Post::create($saveData);
 
         if($savePost){
             $res = ["status" => "success", "result"=> $savePost];
@@ -42,7 +41,7 @@ class PostController extends Controller
 
         $status  = 1;
 
-        $updateStatus = Posts::where('id', $request->post_id)
+        $updateStatus = Post::where('id', $request->post_id)
                                 // ->where("status", 0)
                                 ->update(["status" => $status]);
                         
